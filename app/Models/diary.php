@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class diary extends Model
+class Diary extends Model
 {
-    //
+  protected $fillable = ["title", "body", "date"];
 }

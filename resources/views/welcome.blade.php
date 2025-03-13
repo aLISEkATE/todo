@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-    <h1>Sveiks Laravel!
-    </h1>
-</body>
-</html>
+
+<x-layout>
+  <x-slot:title>
+   Welcome
+  </x-slot:title>
+
+  <h1>Sveiks Laravel!</h1>
+
+</x-layout>
+               

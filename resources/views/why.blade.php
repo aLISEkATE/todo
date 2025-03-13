@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ asset('style.css;') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
+<x-navigation></x-navigation>
     <h1>Why</h1>
     <p>Mūsdienu straujajā dzīves ritmā efektīva laika plānošana un uzdevumu pārvaldība ir kļuvusi par būtisku ikdienas sastāvdaļu. Darāmo darbu saraksta vietne piedāvā strukturētu pieeju, kas palīdz lietotājiem organizēt savus pienākumus un sasniegt mērķus.</p>
 
