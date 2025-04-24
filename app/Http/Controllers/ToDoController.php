@@ -3,18 +3,24 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ToDo;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class ToDoController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
-        $todos = ToDo::all();
+        $todos = ToDo::all(); // Global scope ensures only the user's records are retrieved
         return view("todos.index", compact("todos"));
     }
 
-    public function show(ToDo $todo) 
+    public function show(ToDo $todo)
     {
-        return view("todos.show", compact("todo"));
+        $this->authorize('view', $todo);
+        return view('todos.show', compact('todo'));
     }
 
     public function create(ToDo $create) 
@@ -26,15 +32,16 @@ class ToDoController extends Controller
     {
         $validated = $request->validate([
             "content" => ["required", "max:255"],
-            "completed" => ["required"]
+            "completed" => ["required", "boolean"],
         ]);
 
         ToDo::create([
-            "content" => $request->content,
-            "completed" => $request->completed
+            "content" => $validated["content"],
+            "completed" => $validated["completed"],
+            "user_id" => Auth::id(), // Set the user_id to the authenticated user's ID
         ]);
 
-        return redirect("/todos");
+        return redirect()->route('todos.index')->with('success', 'To-Do created successfully!');
     }
 
     public function update(Request $request, ToDo $todo)

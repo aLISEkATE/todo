@@ -8,7 +8,10 @@
 </head>
 
 <body>
+
+@auth
 <x-navigation></x-navigation>
+@endauth
 <h1>Visi veicamie uzdevumi</h1>  
 <ul>
 

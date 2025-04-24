@@ -1,4 +1,5 @@
 <header>
+@auth
 <nav>
     <ul>
         <li><a href="/">Sākums</a></li>
@@ -8,4 +9,6 @@
         <li><a href="/todos/create">Uzdevumu izveide</a></li>
     </ul>
 </nav>
+@endauth
+
 </header>
