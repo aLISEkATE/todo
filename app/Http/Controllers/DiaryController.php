@@ -3,18 +3,23 @@
 namespace App\Http\Controllers;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Models\Diary;
+use Illuminate\Support\Facades\Auth;
 class DiaryController extends Controller
 {
+    use AuthorizesRequests;
+    
     public function index()
     {
-        $diaries = Diary::all();
+        $diaries = Diary::all(); // Global scope ensures only the user's diaries are retrieved
         return view("diaries.index", compact("diaries"));
     }
     public function create(Diary $create) {
         return view("diaries.create.create", compact("create"));
       }
     public function show(Diary $diary) {
+        $this->authorize('view', $diary); // Ensure the user can view this diary
         return view("diaries.show", compact("diary"));
       }
       public function store(Request $request){
@@ -25,9 +30,10 @@ class DiaryController extends Controller
             'date' => ['required', Rule::date()->format('Y-m-d')]
           ]);
 Diary::create([
-    "title" => $request->title,
-    "body" => $request->body,
-    "date" => $request->date
+    "title" => $validated["title"],
+    "body" => $validated["body"],
+    "date" => $validated["date"],
+    "user_id" => Auth::id(), // Assign the authenticated user's ID
   ]);
   return redirect("/diaries");  
       }
@@ -57,4 +63,4 @@ return redirect("/diaries/". $diary-> id);
       return redirect("/diaries");
     }
     
-} 
+}
